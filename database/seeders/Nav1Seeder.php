@@ -75,14 +75,14 @@ class Nav1Seeder extends Seeder
             ],
             [
                 'name' => 'Mobile Apps',
-                'name_url' => '/services/mobile-apps',
+                'name_url' => '/loading_count_down',
                 'parent_id' => $servicesId,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'IT Consultancy',
-                'name_url' => '/services/consultancy',
+                'name_url' => '/loading_count_down',
                 'parent_id' => $servicesId,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -91,16 +91,23 @@ class Nav1Seeder extends Seeder
 
         // About Us Dropdown Items
         DB::table('nav1')->insert([
+                        [
+                'name' => 'About Us',
+                'name_url' => '/about',
+                'parent_id' => $aboutId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             [
                 'name' => 'Our Mission',
-                'name_url' => '/about/mission',
+                'name_url' => '/loading_count_down',
                 'parent_id' => $aboutId,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'Our Team',
-                'name_url' => '/about/team',
+                'name_url' => '/loading_count_down',
                 'parent_id' => $aboutId,
                 'created_at' => now(),
                 'updated_at' => now(),

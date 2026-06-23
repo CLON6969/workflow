@@ -17,9 +17,9 @@ class UserSeeder extends Seeder
             [
                 // Basic Info
                 'user_type' => 'individual',
-                'name' => 'Admin User',
-                'username' => 'admin',
-                'email' => 'admin@example.com',
+                'name' => 'Reviewer User',
+                'username' => 'Reviewer',
+                'email' => 'mongutechnologies@gmail.com',
                 'password' => Hash::make('password'),
                 'profile_picture' => null,
                 'account_status' => 'active',
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
 
                 // Extra
                 'bio' => 'System administrator account',
-                'job_title' => 'Admin',
+                'job_title' => 'Reviewer',
                 'referral_source' => null,
 
                 // Relationships (set null unless roles exist)
@@ -66,8 +66,8 @@ class UserSeeder extends Seeder
             [
                 'user_type' => 'individual',
                 'name' => 'Test Applicant',
-                'username' => 'reviewer',
-                'email' => 'applicant@example.com',
+                'username' => 'Aplicant',
+                'email' => 'erickmaliko69@gmail.com',
                 'password' => Hash::make('password'),
                 'profile_picture' => null,
                 'account_status' => 'active',

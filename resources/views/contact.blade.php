@@ -5,12 +5,12 @@
 
     {{-- 🌍 Left Section --}}
     <div class="relative lg:w-2/5 w-full h-64 lg:h-auto">
-        <img src="{{ asset('/public/uploads/pics/83.jpg') }}" alt="logo"
+        <img src="{{ asset('/public/uploads/pics/default.png') }}" alt="logo"
              class="absolute inset-0 w-full h-full object-cover opacity-70">
 
         <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center px-8 lg:px-12 text-white">
-            <h1 class="text-3xl font-bold mb-2">Paperflow9</h1>
-            <h2 class="text-lg lg:text-xl font-semibold mb-4">Talk to our Paperflow9 Team</h2>
+            <h1 class="text-3xl font-bold mb-2">WorkFlow</h1>
+            <h2 class="text-lg lg:text-xl font-semibold mb-4">Talk to our WorkFlow Team</h2>
             <ul class="space-y-2 text-sm lg:text-base text-gray-100 list-disc list-inside">
                 <li>Get started with a free trial or a demo</li>
                 <li>Learn about our products and solutions</li>

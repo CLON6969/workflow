@@ -18,10 +18,10 @@ class VerifyEmailController extends Controller
 
         if ($user->hasVerifiedEmail()) {
             return redirect()->intended(match ($user->role_id) {
-                1 => route('admin.dashboard'),
+                1 => route('Reviewer.dashboard'),
                 2 => route('staff.dashboard'),
                 3 => route('Uploader.dashboard'),
-                4 => route('Student.dashboard'),
+                4 => route('Applicant.dashboard'),
                 default => '/',
             } . '?verified=1');
         }
@@ -31,10 +31,10 @@ class VerifyEmailController extends Controller
         }
 
         return redirect()->intended(match ($user->role_id) {
-            1 => route('admin.dashboard'),
+            1 => route('Reviewer.dashboard'),
             2 => route('staff.dashboard'),
             3 => route('Uploader.dashboard'),
-            4 => route('Student.dashboard'),
+            4 => route('Applicant.dashboard'),
             default => '/',
         } . '?verified=1');
     }

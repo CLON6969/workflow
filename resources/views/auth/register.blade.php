@@ -11,7 +11,8 @@
     <div class="login-container">
         <div class="login-box">
             <div class="text-center">
-                <a href="{{ $logo->home_url }}">
+                <a href="{{$logo->home_url}}">
+                    
                     <img src="{{ asset('/public/storage/uploads/logo/' . $logo->picture) }}" alt="logo">
                 </a>
                 <h2>Sign up</h2>

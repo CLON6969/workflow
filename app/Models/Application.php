@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ApplicationStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,10 +27,12 @@ class Application extends Model
     protected $casts = [
         'amount' => 'decimal:2',
         'date' => 'date',
-        'status' => 'string',
+        'status' => ApplicationStatus::class,           // ← Important Enum Casting
+        'current_reviewer_id' => 'integer',
     ];
 
-    // Relationships
+    // === Relationships ===
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -45,10 +48,11 @@ class Application extends Model
         return $this->hasMany(ApplicationLog::class);
     }
 
-    // Helper Methods
+    // === Helper Methods ===
+
     public function isDraft(): bool
     {
-        return $this->status === 'draft';
+        return $this->status === ApplicationStatus::DRAFT;
     }
 
     public function canBeEditedBy(User $user): bool
@@ -59,5 +63,21 @@ class Application extends Model
     public function belongsToUser(User $user): bool
     {
         return $this->user_id === $user->id;
+    }
+
+    /**
+     * Get status label for views
+     */
+    public function getStatusLabelAttribute(): string
+    {
+        return $this->status->label();
+    }
+
+    /**
+     * Get status badge color for views
+     */
+    public function getStatusBadgeAttribute(): string
+    {
+        return $this->status->badgeColor();
     }
 }

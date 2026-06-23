@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Resource;
 
-use App\Models\ActivityLog;
+
 use App\Models\User;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function admin()
+    public function Reviewer()
     {
-        return view('admin.dashboard');
+        return view('Reviewer.dashboard');
     }
 
     public function user()
@@ -37,12 +37,10 @@ class DashboardController extends Controller
         // Download & view stats
         $totalDownloads    = Resource::sum('downloads_count');
         $totalViews        = Resource::sum('views_count');
-        $downloadsToday    = ActivityLog::where('type', 'download')
-                                ->whereDate('created_at', today())
-                                ->count();
+
 
         // User counts by role (using role name instead of hard-coded IDs)
-        $studentsCount     = User::whereHas('role', fn($q) => $q->where('name', 'student'))->count();
+        $ApplicantsCount     = User::whereHas('role', fn($q) => $q->where('name', 'Applicant'))->count();
         $lecturersCount    = User::whereHas('role', fn($q) => $q->where('name', 'lecturer'))->count();
         $totalUsers        = User::count();
 
@@ -68,14 +66,14 @@ class DashboardController extends Controller
         // Latest 50 users with their roles
         $users = User::with('role')->latest()->take(50)->get();
 
-        return view('admin.job_user_summary.index', compact(
+        return view('Reviewer.job_user_summary.index', compact(
             'approvedResources',
             'pendingResources',
             'rejectedResources',
             'totalDownloads',
             'totalViews',
             'downloadsToday',
-            'studentsCount',
+            'ApplicantsCount',
             'lecturersCount',
             'totalUsers',
             'latestResources',
@@ -85,10 +83,10 @@ class DashboardController extends Controller
         ));
     }
 
-    public function Student()
+    public function Applicant()
     {
         $user = Auth::user();
 
-        return view('Student.dashboard');
+        return view('Applicant.dashboard');
     }
 }

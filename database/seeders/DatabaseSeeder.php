@@ -12,6 +12,10 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,   // MUST come first
             UserSeeder::class,
 
+            LegalDocumentsSeeder::class,
+            LegalSectionsSeeder::class,
+            LegalListItemsSeeder::class,
+
             LogoSeeder::class,
             HomeSeeder::class,
             HomeTable1Seeder::class,

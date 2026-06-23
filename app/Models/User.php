@@ -13,36 +13,36 @@ class User extends Authenticatable
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
-        'user_type', 
-        'name', 
-        'username', 
-        'email', 
-        'password', 
+        'user_type',
+        'name',
+        'username',
+        'email',
+        'password',
         'profile_picture',
-        'account_status', 
-        'provider', 
-        'provider_id', 
-        'phone', 
-        'whatsapp', 
+        'account_status',
+        'provider',
+        'provider_id',
+        'phone',
+        'whatsapp',
         'address',
-        'city', 
-        'state', 
-        'postal_code', 
-        'country', 
-        'website', 
+        'city',
+        'state',
+        'postal_code',
+        'country',
+        'website',
         'two_factor_enabled',
-        'email_verified', 
-        'bio', 
-        'job_title', 
-        'referral_source', 
+        'email_verified',
+        'bio',
+        'job_title',
+        'referral_source',
         'parent_account_id',
-        'account_type', 
-        'role_id', 
+        'account_type',
+        'role_id',
         'onboarding_complete',
     ];
 
     protected $hidden = [
-        'password', 
+        'password',
         'remember_token',
     ];
 
@@ -53,7 +53,9 @@ class User extends Authenticatable
         'email_verified' => 'boolean',
     ];
 
-    // === Relationships ===
+    // ========================================
+    // ============= RELATIONSHIPS ============
+    // ========================================
 
     public function role()
     {
@@ -86,13 +88,16 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
-    // === New Relationships for this Assignment ===
+    // === Assignment-Specific Relationships ===
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
     }
 
-    // === Role Helper Methods ===
+    // ========================================
+    // ============ HELPER METHODS ============
+    // ========================================
+
     public function isApplicant(): bool
     {
         return optional($this->role)->name === 'Applicant';
@@ -103,9 +108,16 @@ class User extends Authenticatable
         return optional($this->role)->name === 'Reviewer';
     }
 
-    // Optional: Active Scope
     public function scopeActive($query)
     {
         return $query->where('account_status', 'active');
+    }
+
+    /**
+     * Check if user has any role assigned
+     */
+    public function hasRole(): bool
+    {
+        return $this->role_id !== null;
     }
 }

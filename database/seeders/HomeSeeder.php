@@ -14,9 +14,9 @@ class HomeSeeder extends Seeder
     {
         DB::table('home')->insert([
             [
-                'background_picture' => 'uploads/home/background.jpg',
+                'background_picture' => 'pSVO0muoZfqjcgvTWYw3dYOxEyBkTZu5qthKTHir.jpg',
                 'picture1' => 'uploads/home/about.jpg',
-                'background_picture2' => 'uploads/home/banner.jpg',
+                'background_picture2' => '1tXbaNlvnjKchQzWBnhjSVEPt93K2Y4AuSuHhH6C.jpg',
 
                 'title1' => 'Welcome to Our Website',
                 'title1_content' => 'We provide quality services and innovative solutions.',

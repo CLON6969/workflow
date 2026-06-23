@@ -2,8 +2,6 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Guest\GuestMessageController;
-use App\Http\Controllers\Guest\GuestReviewController;
 use App\Http\Controllers\Auth\SocialAuthController;
 
 // Models baing used 
@@ -91,19 +89,7 @@ Route::prefix('products')->name('products.')->group(function () {
     });
 });
 
-// ----------------------
-// Guest Enquiries
-// ----------------------
-Route::prefix('guest')->name('guest.')->group(function () {
-    Route::prefix('inquiry')->name('inquiry.')->group(function () {
-        Route::post('/send-whatsapp', [GuestMessageController::class, 'sendViaWhatsApp'])->name('sendWhatsApp');
-        Route::post('/send-email', [GuestMessageController::class, 'sendViaEmail'])->name('sendEmail');
-    });
 
-    Route::prefix('reviews')->name('reviews.')->group(function () {
-        Route::post('/{productId}', [GuestReviewController::class, 'guestStore'])->name('store');
-    });
-});
 
 
 
@@ -128,11 +114,8 @@ Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'
 
 
 
-require __DIR__.'/admin.php';
-require __DIR__.'/staff.php';
-require __DIR__.'/user.php';
-require __DIR__.'/Uploader.php';
-require __DIR__.'/Student.php';
+require __DIR__.'/Reviewer.php';
+require __DIR__.'/Applicant.php';
 require __DIR__.'/auth.php';
 require __DIR__.'/api.php';
 
@@ -140,10 +123,10 @@ require __DIR__.'/api.php';
 Route::get('/login', function () {
     if (auth()->check()) {
         return redirect()->route(match (auth()->user()->role_id) {
-            1 => 'admin.dashboard',
+            1 => 'Reviewer.dashboard',
             2 => 'staff.dashboard',
             3 => 'Uploader.dashboard',
-            4 => 'Student.dashboard',
+            4 => 'Applicant.dashboard',
         });
     }
 
@@ -153,10 +136,10 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     if (auth()->check()) {
         return redirect()->route(match (auth()->user()->role_id) {
-            1 => 'admin.dashboard',
+            1 => 'Reviewer.dashboard',
             2 => 'staff.dashboard',
             3 => 'Uploader.dashboard',
-            4 => 'Student.dashboard',
+            4 => 'Applicant.dashboard',
         });
     }
 

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Carbon;
+
 
 class RolesSeeder extends Seeder
 {
@@ -13,8 +13,8 @@ class RolesSeeder extends Seeder
     {
         DB::table('roles')->insert([
             [
-                'name' => 'admin',
-                'description' => 'System administrator with full access',
+                'name' => 'Reviewer',
+                'description' => 'System Revieweristrator with full access',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -32,7 +32,7 @@ class RolesSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'student',
+                'name' => 'Applicant',
                 'description' => 'Job seeker applying for available positions',
                 'created_at' => now(),
                 'updated_at' => now(),

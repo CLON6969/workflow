@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 4, // Student role
+            'role_id' => 4, // Applicant role
             'onboarding_complete' => false, // Not yet completed onboarding
         ]);
 
@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('Student.dashboard');
+        return redirect()->route('Applicant.dashboard');
     }
 
 

@@ -1,4 +1,4 @@
-@extends('layouts.admin_dashboard')
+@extends('layouts.Reviewer_dashboard')
 
 @section('content')
 
@@ -6,7 +6,7 @@
  <div class="wrapper">
   <nav id="sidebar" class="sidebar d-flex flex-column collapsed">
     <div class="d-flex justify-content-between align-items-center text-white px-3 py-2 border-bottom">
-      <span class="nav-label fw-bold">Admin</span>
+      <span class="nav-label fw-bold">Reviewer</span>
       <button id="toggleSidebar" class="btn btn-sm btn-outline-light"><i class="fas fa-bars"></i></button>
     </div>
     
