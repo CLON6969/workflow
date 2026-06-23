@@ -1,0 +1,296 @@
+
+  
+
+/* ======================
+   OPPORTUNITIES CARDS
+   ====================== */
+.opportunities-container { display: flex; flex-wrap: wrap; width: 100%; }
+.opportunity-card { position: relative; flex: 1 1 33%; min-height: 50vh; overflow: hidden; cursor: pointer; }
+.opportunity-card .bg { position: absolute; width: 100%; height: 100%; object-fit: cover; top: 0; left: 0; z-index: 1; }
+.overlay { position: absolute; inset: 0; background-color: rgba(0,0,0,0.6); z-index: 2; display: flex; justify-content: center; align-items: center; padding: 20px; text-align: center; transition: background-color 0.3s ease; }
+.overlay:hover { background-color: rgba(0,0,0,0.42); }
+.overlay .content { color: #fff; z-index: 3; }
+.overlay h2 { font-size: 1.8rem; margin-bottom: 10px; }
+.overlay p  { font-size: 1rem; }
+.read-more { color: #00aced; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 10px; }
+.read-more:hover { text-decoration: underline; }
+
+/* FULLSCREEN OVERLAY */
+.fullscreen-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 9999; animation: fadeIn 0.3s ease; }
+.fullscreen-overlay.active { display: flex; }
+.overlay-inner { width: 100%; height: 100%; background-size: cover; background-position: center; position: relative; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.overlay-inner::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
+.overlay-text { position: relative; max-width: 700px; text-align: center; color: #fff; z-index: 2; }
+.overlay-text h2 { font-size: 2rem; margin-bottom: 10px; }
+.overlay-text p  { font-size: 1rem; }
+.more-content { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.4s ease; }
+.more-content.active { max-height: 300px; opacity: 1; margin-top: 15px; }
+.expand-btn { background: none; border: 1px solid #fff; color: #fff; padding: 8px 16px; margin-top: 15px; cursor: pointer; }
+.expand-btn:hover { background: rgba(255,255,255,0.1); }
+.close-btn { position: absolute; top: 25px; right: 30px; font-size: 40px; background: none; border: none; color: #fff; cursor: pointer; z-index: 3; }
+
+/* ======================
+   RESPONSIVE
+   ====================== */
+@media (max-width: 1200px) {
+  .slide-image img { max-width: 350px; height: auto; }
+}
+@media (max-width: 992px) {
+  .slide { grid-template-columns: 1fr; text-align: center; }
+  .slide-text { margin-left: 0; }
+  .floating-card { position: static; margin-top: 15px; width: auto; animation-delay: 0.6s; }
+  .slide-image img { max-width: 80%; height: auto; }
+  .opportunity-card { flex: 1 1 48%; min-height: 40vh; }
+  .overlay-text h2 { font-size: 1.6rem; }
+  .overlay-text p, .expand-btn { font-size: 0.9rem; }
+}
+@media (max-width: 600px) {
+  .slide-text h1 { font-size: 2rem; }
+  .slide-text h2 { font-size: 1.1rem; }
+  .slide-text p { font-size: 0.95rem; }
+  .buttons { flex-direction: column; gap: 10px; }
+  .slide-image img { max-width: 100%; height: 250px; }
+  .opportunity-card { flex: 1 1 100%; min-height: 30vh; }
+  .overlay-text h2 { font-size: 1.4rem; }
+  .overlay-text p, .expand-btn { font-size: 0.85rem; }
+  .slide-image { display: flex; flex-direction: column; }
+  .hero-slider {height: fit-content;}
+
+}
+
+
+.animated-image {
+  transition: opacity 0.8s ease-in-out;
+  opacity: 1;
+}
+
+.animated-image.fade-out {
+  opacity: 0;
+}
+
+
+
+/* Cards container */
+.opportunities-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10px 0 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Each card */
+.opportunity-card {
+  position: relative;
+  flex: 1 1 33.33%;
+  height: 100vh;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Card background image */
+.opportunity-card .bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Card overlay layer */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.overlay:hover{
+  background-color: rgba(0, 0, 0, 0.422);
+  transition: background-color 0.3s ease;
+}
+
+/* Overlay content */
+.overlay .content {
+  color: #fff;
+  z-index: 3;
+}
+
+.overlay h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.overlay p {
+  font-size: 16px;
+}
+
+.read-more {
+  color: #00aced;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+/* ======================
+   FULLSCREEN OVERLAY
+   ====================== */
+
+.fullscreen-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.fullscreen-overlay.active {
+  display: flex;
+}
+
+/* Inner content with background image */
+.overlay-inner {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* Optional dark overlay on the image */
+.overlay-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+/* Overlay visible text */
+.overlay-text {
+  position: relative;
+  max-width: 700px;
+  text-align: center;
+  color: white;
+  z-index: 2;
+}
+
+.overlay-text h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.overlay-text p {
+  font-size: 18px;
+}
+
+/* Hidden extended content */
+.more-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.more-content.active {
+  max-height: 300px;
+  opacity: 1;
+  margin-top: 15px;
+}
+
+/* Button to reveal content */
+.expand-btn {
+  background: none;
+  border: 1px solid #fff;
+  color: white;
+  padding: 8px 16px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.expand-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  font-size: 40px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* ======================
+   ANIMATIONS
+   ====================== */
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
+}
+
+/* ======================
+   RESPONSIVE
+   ====================== */
+
+@media (max-width: 992px) {
+  .opportunity-card {
+    flex: 1 1 50%;
+    height: 60vh;
+  }
+
+  .overlay-text h2 {
+    font-size: 26px;
+  }
+
+  .overlay-text p,
+  .expand-btn {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .opportunity-card {
+    flex: 1 1 100%;
+    height: 50vh;
+  }
+
+  .overlay-text h2 {
+    font-size: 22px;
+  }
+
+  .overlay-text p,
+  .expand-btn {
+    font-size: 14px;
+  }
+}
