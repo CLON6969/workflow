@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Reviewer;
-use App\Http\Controllers\Controller;
 
-use App\Enums\ApplicationStatus;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ReviewActionRequest;
 use App\Models\Application;
 use App\Services\ApplicationWorkflowService;
@@ -11,22 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    protected $workflowService;
-
-    public function __construct(ApplicationWorkflowService $workflowService)
-    {
-        $this->workflowService = $workflowService;
-    }
+    public function __construct(
+        protected ApplicationWorkflowService $workflowService
+    ) {}
 
     /**
-     * Show reviewer queue
+     * Review queue
      */
     public function index()
     {
-        $this->authorize('viewAny', Application::class);
-
-        $applications = Application::with(['user', 'currentReviewer'])
-            ->whereIn('status', ['submitted', 'under_review', 'returned'])
+        $applications = Application::with('user')
+            ->whereIn('status', [
+                'submitted',
+                'under_review',
+            ])
             ->latest()
             ->paginate(15);
 
@@ -34,44 +31,33 @@ class ReviewController extends Controller
     }
 
     /**
-     * Show single application detail + logs
+     * Show single application for review
      */
     public function show(Application $application)
     {
         $this->authorize('view', $application);
 
-        $application->load(['logs.user', 'user']);
+        $application->load(['user', 'logs.user']);
 
         return view('reviewer.show', compact('application'));
     }
 
     /**
-     * Process review action (approve / reject / return)
+     * Perform review action (approve/reject/return)
      */
     public function review(ReviewActionRequest $request, Application $application)
     {
         $this->authorize('review', $application);
 
-        try {
-            $newStatus = $request->getNewStatus();
+        $application = $this->workflowService->transition(
+            application: $application,
+            action: $request->input('action'),
+            user: Auth::user(),
+            comment: $request->input('comment')
+        );
 
-            $this->workflowService->transition(
-                $application,
-                $newStatus,
-                Auth::user(),
-                $request->comment
-            );
-
-            $message = match($newStatus) {
-                ApplicationStatus::APPROVED => 'Application approved successfully.',
-                ApplicationStatus::REJECTED => 'Application rejected.',
-                ApplicationStatus::RETURNED => 'Application returned for changes.',
-            };
-
-            return redirect()->route('reviewer.queue')
-                ->with('success', $message);
-        } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
-        }
+        return redirect()
+            ->route('Reviewer.applications.show', $application)
+            ->with('success', 'Action completed successfully.');
     }
 }

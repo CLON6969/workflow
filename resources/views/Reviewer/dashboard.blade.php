@@ -463,6 +463,7 @@ document.addEventListener("hidden.bs.collapse", function (e) {
 
 
 createNavButton('Users', 'fa-solid fa-users', 'Manage Users', '{{ route("Reviewer.users.index") }}');
+createNavButton('Users', 'fa-solid fa-file', 'Applications', '{{ route("Reviewer.applications.queue") }}');
 
 
 

@@ -11,107 +11,114 @@ use Illuminate\Support\Facades\DB;
 
 class ApplicationWorkflowService
 {
-    /**
-     * Transition an application to a new status with strict rules
-     */
-    public function transition(Application $application, ApplicationStatus $newStatus, User $user, string $comment = null): Application
-    {
-        $oldStatus = ApplicationStatus::from($application->status);
+    public function transition(
+        Application $application,
+        string $action,
+        User $user,
+        ?string $comment = null
+    ): Application {
 
-        // Validate the transition
+        $oldStatus = $application->status;
+        $newStatus = $this->resolveStatusFromAction($action);
+
         $this->validateTransition($application, $oldStatus, $newStatus, $user, $comment);
 
         return DB::transaction(function () use ($application, $oldStatus, $newStatus, $user, $comment) {
-            
-            // Update application status
-            $application->status = $newStatus->value;
-            
-            // If reviewer is taking action, set current_reviewer_id
+
             if ($user->isReviewer()) {
                 $application->current_reviewer_id = $user->id;
             }
 
+            $application->status = $newStatus;
             $application->save();
 
-            // Log the transition
             ApplicationLog::create([
                 'application_id' => $application->id,
                 'user_id' => $user->id,
-                'old_status' => $oldStatus->value,
-                'new_status' => $newStatus->value,
+                'old_status' => $oldStatus,
+                'new_status' => $newStatus,
                 'comment' => $comment,
             ]);
 
-            return $application->fresh(['logs']);
+            return $application->fresh(['logs', 'user', 'currentReviewer']);
         });
     }
 
-    /**
-     * Validate if transition is allowed
-     */
+    private function resolveStatusFromAction(string $action): ApplicationStatus
+    {
+        return match ($action) {
+            'submit'  => ApplicationStatus::UNDER_REVIEW,
+            'approve' => ApplicationStatus::APPROVED,
+            'reject'  => ApplicationStatus::REJECTED,
+            'return'  => ApplicationStatus::RETURNED_FOR_CHANGES,
+            default   => throw new Exception("Invalid action: {$action}"),
+        };
+    }
+
     private function validateTransition(
-        Application $application, 
-        ApplicationStatus $oldStatus, 
-        ApplicationStatus $newStatus, 
-        User $user, 
+        Application $application,
+        ApplicationStatus $oldStatus,
+        ApplicationStatus $newStatus,
+        User $user,
         ?string $comment
     ): void {
-        
-        // Same status - no transition
+
         if ($oldStatus === $newStatus) {
             throw new Exception("No status change detected.");
         }
 
-        // Rule 1: Only owner can edit/submit DRAFT
+        // Applicant rules
         if ($oldStatus === ApplicationStatus::DRAFT) {
+
             if (!$application->belongsToUser($user)) {
-                throw new Exception("Only the applicant can modify their draft.");
+                throw new Exception("Only the applicant can submit drafts.");
             }
-            
-            if ($newStatus !== ApplicationStatus::SUBMITTED) {
+
+            if ($newStatus !== ApplicationStatus::UNDER_REVIEW) {
                 throw new Exception("Draft can only be submitted.");
             }
+
             return;
         }
 
-        // Rule 2: Applicant cannot edit after leaving DRAFT
+        // block applicants from modifying submitted apps
         if ($application->belongsToUser($user) && !$user->isReviewer()) {
-            throw new Exception("You cannot modify an application after submission.");
+            throw new Exception("Applicants cannot modify submitted applications.");
         }
 
-        // Rule 3: Only Reviewer can perform review actions
+        // Reviewer rules
         if (!$user->isReviewer()) {
             throw new Exception("Only reviewers can perform this action.");
         }
 
-        // Define allowed transitions
         $allowedTransitions = [
-            ApplicationStatus::SUBMITTED->value   => [ApplicationStatus::UNDER_REVIEW],
             ApplicationStatus::UNDER_REVIEW->value => [
                 ApplicationStatus::APPROVED,
                 ApplicationStatus::REJECTED,
-                ApplicationStatus::RETURNED
+                ApplicationStatus::RETURNED_FOR_CHANGES,
             ],
-            ApplicationStatus::RETURNED->value    => [ApplicationStatus::SUBMITTED],
+
+            ApplicationStatus::RETURNED_FOR_CHANGES->value => [
+                ApplicationStatus::UNDER_REVIEW,
+            ],
         ];
 
-        if (!isset($allowedTransitions[$oldStatus->value]) || 
-            !in_array($newStatus, $allowedTransitions[$oldStatus->value])) {
-            
-            throw new Exception("Invalid status transition from {$oldStatus->label()} to {$newStatus->label()}.");
+        if (
+            !isset($allowedTransitions[$oldStatus->value]) ||
+            !in_array($newStatus, $allowedTransitions[$oldStatus->value], true)
+        ) {
+            throw new Exception(
+                "Invalid transition from {$oldStatus->label()} to {$newStatus->label()}."
+            );
         }
 
-        // Rule 4: Reject and Return require comment
-        if (in_array($newStatus, [ApplicationStatus::REJECTED, ApplicationStatus::RETURNED]) && empty($comment)) {
-            throw new Exception("A comment is required when rejecting or returning an application.");
+        if (
+            in_array($newStatus, [
+                ApplicationStatus::REJECTED,
+                ApplicationStatus::RETURNED_FOR_CHANGES,
+            ]) && empty($comment)
+        ) {
+            throw new Exception("Comment is required for this action.");
         }
-    }
-
-    /**
-     * Check if user can edit the application
-     */
-    public function canEdit(Application $application, User $user): bool
-    {
-        return $application->canBeEditedBy($user);
     }
 }

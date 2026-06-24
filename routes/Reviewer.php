@@ -1,33 +1,24 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Reviewer\UserController;
-use App\Http\Controllers\Reviewer\{ ReviewerProfileController};
-
-// Import the new controllers for this assignment
+use App\Http\Controllers\Reviewer\ReviewerProfileController;
 use App\Http\Controllers\Reviewer\ReviewController;
-
-
-
-
 
 // Public Controllers
 use App\Http\Controllers\{
     DashboardController
 };
 
-
-
-
-// Web Controllers
+// Web Controllers (your existing)
 use App\Http\Controllers\Reviewer\Web\{
     WebHomepageContentController,
     WebHomepageContentTableController,
     WebOpportunityController,
     WebLegalController,
-     WebAboutController,
+    WebAboutController,
     WebAboutTableController,
     WebCompanyStatementController,
-   
 };
 
 use App\Http\Controllers\Reviewer\Web\General\{
@@ -42,35 +33,22 @@ Route::middleware(['auth', 'role:1'])->prefix('Reviewer')->name('Reviewer.')->gr
     Route::get('/dashboard', [DashboardController::class, 'Reviewer'])->name('dashboard');
     Route::view('/loading_count_down', 'loading_count_down')->name('loading_count_down');
 
-
-
-
-
-// =============================
-    // APPLICATION REVIEW (Assignment B)
+    // =============================
+    // APPLICATION REVIEW (Assignment)
     // =============================
     Route::prefix('applications')->name('applications.')->group(function () {
-        // Review Queue
         Route::get('/queue', [ReviewController::class, 'index'])->name('queue');
-
-        // View Application Detail
         Route::get('/{application}', [ReviewController::class, 'show'])->name('show');
-
-        // Approve / Reject / Return Action
         Route::post('/{application}/review', [ReviewController::class, 'review'])->name('review');
     });
 
-
-
-
-    // Applicant profile CRUD (user table)
-Route::prefix('profile-account')->name('profile-account.')->group(function () {
-    Route::get('/', [ReviewerProfileController::class, 'edit'])->name('index');
-    Route::put('/update', [ReviewerProfileController::class, 'update'])->name('update');
-    Route::put('/password', [ReviewerProfileController::class, 'updatePassword'])->name('password.update');
-    Route::delete('/delete', [ReviewerProfileController::class, 'destroy'])->name('destroy');
-});
-
+    // Profile
+    Route::prefix('profile-account')->name('profile-account.')->group(function () {
+        Route::get('/', [ReviewerProfileController::class, 'edit'])->name('index');
+        Route::put('/update', [ReviewerProfileController::class, 'update'])->name('update');
+        Route::put('/password', [ReviewerProfileController::class, 'updatePassword'])->name('password.update');
+        Route::delete('/delete', [ReviewerProfileController::class, 'destroy'])->name('destroy');
+    });
 
 /* -------------------------------
 | 👥 USER MANAGEMENT

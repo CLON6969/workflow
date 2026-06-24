@@ -10,46 +10,61 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            
-            // Applicant
-            $table->foreignId('user_id')
-                  ->constrained('users')
-                  ->onDelete('cascade');
 
+            // =========================
+            // Applicant
+            // =========================
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
+
+            // =========================
             // Application Details
+            // =========================
             $table->string('title');
+
             $table->enum('category', [
-                'leave', 
-                'expense', 
-                'procurement', 
-                'reimbursement', 
+                'leave',
+                'expense',
+                'procurement',
+                'reimbursement',
                 'other'
             ]);
+
             $table->text('description');
+
             $table->decimal('amount', 15, 2)->nullable();
             $table->date('date')->nullable();
 
+            // =========================
             // Attachment
+            // =========================
             $table->string('attachment')->nullable();
 
-            // Workflow
+            // =========================
+            // Workflow Status (FIXED)
+            // =========================
             $table->enum('status', [
                 'draft',
-                'submitted',
                 'under_review',
                 'approved',
                 'rejected',
-                'returned'
+                'returned_for_changes'
             ])->default('draft');
 
+            // =========================
+            // Reviewer Tracking
+            // =========================
             $table->foreignId('current_reviewer_id')
-                  ->nullable()
-                  ->constrained('users')
-                  ->onDelete('set null');
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
 
             $table->timestamps();
 
+            // =========================
             // Indexes
+            // =========================
             $table->index(['user_id', 'status']);
             $table->index('status');
         });
