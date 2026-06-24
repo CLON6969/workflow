@@ -1,11 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
 ## About Laravel
 
@@ -19,41 +11,468 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 - [Robust background job processing](https://laravel.com/docs/queues).
 - [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+ 
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+# Dynamic Form Workflow & Content Management System
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Live Demo
 
-## Laravel Sponsors
+**Live URL:** https://workflow.mongutech.com/
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**GitHub Repository:** https://github.com/CLON6969/workflow
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Test User Credentials
 
-## Code of Conduct
+The system includes pre-configured test accounts for evaluation purposes. (both in live and seeding localsetup or you can create your own)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Reviewer / Administrator Account
 
-## Security Vulnerabilities
+**Role:** Reviewer (Admin)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Email:** mongutechnologies@gmail.com
 
-## License
+**Username:** Reviewer
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Password:** password
+
+**Permissions:**
+
+
+
+### Applicant Account
+
+**Role:** Applicant
+
+**Email:** erickmaliko69@gmail.com
+
+**Username:** Applicant
+
+**Password:** password
+
+**Permissions:**
+
+### Workflow Testing Steps
+
+1. Login as the Applicant.
+2. Create a new application and save it as a draft.
+3. Submit the application.
+4. Logout and login as the Reviewer.
+5. Review the submitted application.
+6. Approve, Reject, or Return the application for changes.
+7. If returned, login again as the Applicant.
+8. Edit the application and resubmit it.
+9. Verify the workflow audit trail in the Application Logs.
+
+> Note: These credentials are intended for testing and demonstration purposes only.
+
+---
+
+
+
+
+
+# Project Overview
+
+This project is a Laravel 12 web application developed as a solution for the Dynamic Form Builder and Submission & Approval Workflow assignment.
+
+The system provides a complete application submission workflow where applicants can create, edit, submit, and track applications while reviewers manage approvals through a controlled workflow engine with a full audit trail.
+
+In addition to the workflow functionality, the platform includes a dynamic content management component that allows administrators (reviewers) to manage website content directly from the dashboard without modifying source code.(this includes , navlinks ,landing pange, foooter, aboutpage and manymore) 
+
+futher more , it also has account management both for the applicant and the Reviewer
+
+futher more a logingin feature using google and facebook has been added
+
+---
+
+# Assignment Objectives Covered
+
+## Assignment A: Dynamic Form Builder Engine
+
+The system provides a configurable foundation for managing and processing application forms.
+
+Features include:
+
+* Dynamic application creation
+* Form validation
+* File attachment support
+* Structured application storage
+* Category-based application management
+* Extensible architecture for future dynamic form definitions
+
+---
+
+## Assignment B: Submission & Approval Workflow
+
+The system implements a complete workflow process with enforced status transitions and audit logging.
+
+Workflow states include:
+
+* Draft
+* Under Review
+* Approved
+* Rejected
+* Returned for Changes
+
+Every status change is validated through a centralized workflow service to ensure workflow integrity.
+
+---
+
+# Core Features
+
+## Authentication & Authorization
+
+* Laravel Authentication (loingin and signup)
+* Role-Based Access Control
+* Applicant Role
+* Reviewer Role
+* Policy-Based Authorization
+* Protected Workflow Actions
+
+---
+
+## Applicant Features
+
+Applicants can:
+
+* Register and log in
+* Create application drafts
+* Edit drafts
+* Upload supporting documents
+* Submit applications
+* View application history
+* Track application status
+* Receive reviewer feedback
+* Edit returned applications
+* Re-submit returned applications
+
+---
+
+## Reviewer Features
+
+Reviewers can:
+
+* View review queues
+* Review submitted applications
+* Approve applications
+* Reject applications
+* Return applications for corrections
+* Add review comments
+* Track workflow history
+* Monitor user activities
+
+---
+
+# Website Content Management
+
+A unique aspect of this system is its integrated content management capability.
+
+The Reviewer (Administrator) can dynamically manage website content through the dashboard without accessing source code.
+
+Manageable sections include:
+
+* Navigation Links
+* Landing Page Content
+* Hero Sections
+* About Page
+* Footer Content
+* Opportunities Section
+* Informational Pages
+* Dynamic Website Text and Media
+* Website Images and Visual Assets
+
+This functionality allows the website to serve both as a workflow management platform and a content-managed web application.
+
+---
+
+# Workflow Architecture
+
+The application uses a centralized workflow(workflow management only without the website managment) engine implemented through:
+
+## ApplicationWorkflowService
+
+All status changes are processed through a single service layer.
+
+This ensures:
+
+* Workflow consistency
+* Transition validation
+* Audit logging
+* Permission enforcement
+* Business rule management
+
+---
+
+## Workflow Diagram
+
+Draft
+
+↓
+
+Under Review (this is the same as submitting a draft for review)
+
+├── Approved
+
+├── Rejected
+
+└── Returned For Changes
+
+↓
+
+Applicant Updates
+
+↓
+
+Re-Submit
+
+↓
+
+Under Review
+
+---
+
+# Audit Trail
+
+Every workflow action is recorded.
+
+The system logs:
+
+* User performing the action
+* Previous status
+* New status
+* Review comments
+* Date and time
+
+All audit records are stored in the `application_logs` table.
+
+This provides complete traceability of every application.
+
+---
+
+# Database Structure
+
+## Main Tables
+
+### users
+
+Stores system users and authentication details.
+
+### roles
+
+Stores user roles and permissions. (but has been simplified to id and name(that is wat i just utilized))
+
+### applications
+
+Stores submitted applications and workflow information.
+
+### application_logs
+
+
+
+
+### Other table are resposible for managing website content dynamically
+Tables such as (About, home, nav1, footer and many more)
+
+
+these tables Store additional informational content blocks.
+
+Additional CMS-related tables are used to manage website content dynamically.
+
+---
+
+# Technologies Used
+
+## Backend
+
+* Laravel 12
+* PHP 8.3
+* MySQL
+
+## Frontend
+
+* Blade Templates
+* Tailwind CSS
+* JavaScript
+* AOS Animations
+
+## Development Tools
+
+* Composer
+* NPM
+* Git
+* GitHub
+
+---
+
+# Installation Guide
+
+## Clone Repository
+
+```bash
+git clone https://github.com/CLON6969/workflow.git   
+
+  (puth the folder(workflow) in www if you are using laragon or put it in hotdocs if you are using xamp)
+cd workflow
+```
+
+## Install Dependencies
+
+```bash
+composer install
+npm install
+```
+
+## Environment Configuration
+
+Copy the environment file:
+
+```bash
+cp .env.example .env
+```
+
+
+```bash
+php artisan key:generate
+```
+
+Update database credentials in `.env`.
+## ------------------------ ##
+## database cridensials      ##
+## ------------------------ ##
+
+## DB_CONNECTION=mysql
+## DB_HOST=127.0.0.1
+## DB_PORT=3306
+## DB_DATABASE=workflow
+## DB_USERNAME=root
+## DB_PASSWORD=
+## Generate application key:
+---
+
+## Run Migrations
+
+```bash
+php artisan migrate
+```
+
+---
+
+## Run Seeders
+
+```bash
+php artisan db:seed
+```
+
+---
+
+## Storage Link 
+
+```bash
+php artisan storage:link
+```
+
+---
+
+## Build Frontend Assets (to fully complete the setup)
+
+```bash
+npm run build
+```
+
+---
+
+## Start Application
+
+Open in Web Browser
+
+Open your browser and navigate to: (http://localhost/workflow/)
+
+---
+
+# Design Decisions
+
+Several architectural decisions were made during development:
+
+### Centralized Workflow Logic
+
+Instead of allowing controllers to directly change statuses, all workflow transitions are managed through a dedicated service layer.
+
+Benefits:
+
+* Single source of truth
+* Easier maintenance
+* Better scalability
+* Reduced duplication
+
+### Policy-Based Authorization
+
+Laravel Policies were used to ensure that permissions are enforced consistently throughout the application.
+
+### Audit Logging
+
+Every workflow transition is logged to provide accountability and transparency.
+
+---
+
+# Testing
+
+The following workflow scenarios were tested:(manual testing was used)
+
+* Draft Creation
+* Draft Editing
+* Application Submission
+* Review Queue Processing
+* Approval Workflow
+* Rejection Workflow
+* Return for Changes Workflow
+* Re-Submission Workflow
+* Audit Logging
+* Authorization Policies
+
+---
+
+# Use of AI Assistance
+
+During development, ChatGPT and Grock was used as a supplementary development tool to assist with:
+
+
+* Workflow design refinement
+* Debugging and troubleshooting
+* Code review and optimization suggestions
+* Database design guidance
+* README documentation preparation
+
+All implementation decisions, testing, integration, customization, and final code validation were performed by the developer.
+
+AI assistance was used in a similar capacity to technical documentation, online references, and developer resources.
+
+---
+
+# Future Improvements
+
+Future enhancements may include:
+
+
+* Multi-Level Approval Chains
+* Email Notifications
+* SMS Notifications
+* Dashboard Analytics
+* Reviewer Assignment Automation
+* Advanced Reporting
+* Export to PDF and Excel
+* REST API Integration
+
+---
+
+# Author
+
+**Erick Maliko**
+
+Laravel 12 Workflow & Content Management System
+
+Developed as part of the Dynamic Form Builder and Submission & Approval Workflow assignment.
+
