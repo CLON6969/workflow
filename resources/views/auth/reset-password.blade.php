@@ -60,7 +60,7 @@
 
                 <p class="signup-text">Remembered your password? <a href="{{ route('login') }}">Back to Login</a></p>
 
-                <p class="footer">© 2025 Powered by Kumoyo Technologies.</p>
+                <p class="footer">© 2025 Powered byWorkflow Technologies.</p>
             </form>
         </div>
     </div>

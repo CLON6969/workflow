@@ -373,12 +373,11 @@ function createNavButton(label, icon, title, url){
     menu.appendChild(li);
 }
 
-
+createNavButton('My Applications', 'fa-solid fa-file-lines', 'My Applications','{{ route("Applicant.applications.index") }}');
 
 createNavButton('My Profile','fa-solid fa-user-gear','My Profile','{{ route("Applicant.profile-account.index") }}');
 
-createNavButton('My Applications', 'fa-solid fa-file-lines', 'My Applications', 
-    '{{ route("Applicant.applications.index") }}');
+
 
 
 

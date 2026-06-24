@@ -135,7 +135,7 @@
                 </p>
             </form>
 
-            <p class="footer">© 2025 Powered by Kumoyo Technologies.</p>
+            <p class="footer">© 2025 Powered byWorkflow Technologies.</p>
         </div>
     </div>
 

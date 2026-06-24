@@ -76,7 +76,7 @@
                     <p class="text-base font-medium tracking-wider text-gray-300">
                         &copy; <span id="current-year"></span> 
                         <span class="text-white font-bold bg-gradient-to-r from-sky-400 to-sky-300 bg-clip-text text-transparent">
-                            Powered by Kumoyo Technologies
+                            Powered by Workflow Technologies
                         </span>
                     </p>
                     <p class="text-sm text-gray-500 mt-3 opacity-80">

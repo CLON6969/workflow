@@ -25,6 +25,7 @@ class ApplicationWorkflowService
 
         return DB::transaction(function () use ($application, $oldStatus, $newStatus, $user, $comment) {
 
+            // assign reviewer only when reviewer acts
             if ($user->isReviewer()) {
                 $application->current_reviewer_id = $user->id;
             }
@@ -34,27 +35,39 @@ class ApplicationWorkflowService
 
             ApplicationLog::create([
                 'application_id' => $application->id,
-                'user_id' => $user->id,
-                'old_status' => $oldStatus,
-                'new_status' => $newStatus,
-                'comment' => $comment,
+                'user_id'        => $user->id,
+                'old_status'     => $oldStatus,
+                'new_status'     => $newStatus,
+                'comment'        => $comment,
             ]);
 
             return $application->fresh(['logs', 'user', 'currentReviewer']);
         });
     }
 
+    /**
+     * Convert UI action → status
+     */
     private function resolveStatusFromAction(string $action): ApplicationStatus
     {
         return match ($action) {
-            'submit'  => ApplicationStatus::UNDER_REVIEW,
-            'approve' => ApplicationStatus::APPROVED,
-            'reject'  => ApplicationStatus::REJECTED,
-            'return'  => ApplicationStatus::RETURNED_FOR_CHANGES,
-            default   => throw new Exception("Invalid action: {$action}"),
+
+            // applicant actions
+            'submit'   => ApplicationStatus::UNDER_REVIEW,
+            'resubmit' => ApplicationStatus::UNDER_REVIEW,
+
+            // reviewer actions
+            'approve'  => ApplicationStatus::APPROVED,
+            'reject'   => ApplicationStatus::REJECTED,
+            'return'   => ApplicationStatus::RETURNED_FOR_CHANGES,
+
+            default => throw new Exception("Invalid action: {$action}"),
         };
     }
 
+    /**
+     * Validate workflow rules
+     */
     private function validateTransition(
         Application $application,
         ApplicationStatus $oldStatus,
@@ -67,40 +80,46 @@ class ApplicationWorkflowService
             throw new Exception("No status change detected.");
         }
 
-        // Applicant rules
-        if ($oldStatus === ApplicationStatus::DRAFT) {
-
-            if (!$application->belongsToUser($user)) {
-                throw new Exception("Only the applicant can submit drafts.");
-            }
-
-            if ($newStatus !== ApplicationStatus::UNDER_REVIEW) {
-                throw new Exception("Draft can only be submitted.");
-            }
-
-            return;
-        }
-
-        // block applicants from modifying submitted apps
+        /*
+        |-------------------------------------------------
+        | 1. APPLICANT RULES
+        |-------------------------------------------------
+        */
         if ($application->belongsToUser($user) && !$user->isReviewer()) {
-            throw new Exception("Applicants cannot modify submitted applications.");
+
+            // Applicant can only act in these states
+            if (!in_array($oldStatus, [
+                ApplicationStatus::DRAFT,
+                ApplicationStatus::RETURNED_FOR_CHANGES,
+            ], true)) {
+                throw new Exception("You cannot modify this application at this stage.");
+            }
+
+            // Applicant can ONLY send forward (submit/resubmit)
+            if ($newStatus !== ApplicationStatus::UNDER_REVIEW) {
+                throw new Exception("Invalid applicant action.");
+            }
+
+            return; // IMPORTANT: stop here for applicant
         }
 
-        // Reviewer rules
+        /*
+        |-------------------------------------------------
+        | 2. REVIEWER RULES
+        |-------------------------------------------------
+        */
         if (!$user->isReviewer()) {
             throw new Exception("Only reviewers can perform this action.");
         }
 
         $allowedTransitions = [
+
             ApplicationStatus::UNDER_REVIEW->value => [
                 ApplicationStatus::APPROVED,
                 ApplicationStatus::REJECTED,
                 ApplicationStatus::RETURNED_FOR_CHANGES,
             ],
 
-            ApplicationStatus::RETURNED_FOR_CHANGES->value => [
-                ApplicationStatus::UNDER_REVIEW,
-            ],
         ];
 
         if (
@@ -112,11 +131,16 @@ class ApplicationWorkflowService
             );
         }
 
+        /*
+        |-------------------------------------------------
+        | 3. COMMENT RULES
+        |-------------------------------------------------
+        */
         if (
             in_array($newStatus, [
                 ApplicationStatus::REJECTED,
                 ApplicationStatus::RETURNED_FOR_CHANGES,
-            ]) && empty($comment)
+            ], true) && empty($comment)
         ) {
             throw new Exception("Comment is required for this action.");
         }

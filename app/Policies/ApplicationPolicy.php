@@ -23,22 +23,28 @@ class ApplicationPolicy
         return $user->isApplicant();
     }
 
-    public function update(User $user, Application $application): bool
-    {
-        return $application->canBeEditedBy($user);
-    }
+public function update(User $user, Application $application): bool
+{
+    return in_array($application->status, [
+        ApplicationStatus::DRAFT,
+        ApplicationStatus::RETURNED_FOR_CHANGES,
+    ], true)
+    && $application->belongsToUser($user);
+}
 
     public function delete(User $user, Application $application): bool
     {
         return $application->status === ApplicationStatus::DRAFT
             && $application->belongsToUser($user);
     }
-
-    public function submit(User $user, Application $application): bool
-    {
-        return $application->status === ApplicationStatus::DRAFT
-            && $application->belongsToUser($user);
-    }
+public function submit(User $user, Application $application): bool
+{
+    return in_array($application->status, [
+        ApplicationStatus::DRAFT,
+        ApplicationStatus::RETURNED_FOR_CHANGES,
+    ], true)
+    && $application->belongsToUser($user);
+}
 
     public function review(User $user, Application $application): bool
     {

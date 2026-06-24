@@ -260,11 +260,11 @@ showSlide(0);   // Start with first slide animated
         >
 
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-                Choose Your Examination Board
+               Apply with Confidance
             </h2>
 
             <p class="text-gray-600 mt-3 text-lg">
-                Start by selecting your board to access relevant materials
+                Start by selecting Making an accoun
             </p>
 
         </div>
@@ -323,36 +323,7 @@ showSlide(0);   // Start with first slide animated
 
 </script>
 
-<div class="opportunities-container">
-  @foreach($opportunities as $index => $opportunity)
-    <section class="opportunity-card" onclick="openOverlay('overlay-{{ $opportunity->id }}')">
-      <img src="{{ asset('/public/storage/opportunities/' . $opportunity->image) }}" class="bg" alt="background picture">
-      <div class="overlay">
-        <div class="content">
-          <h2>{{ $opportunity->title }}</h2>
-          <p>{{ $opportunity->summary }}</p>
-          <a href="#" class="read-more">Read more</a>
-        </div>
-      </div>
-    </section>
-  @endforeach
-</div>
 
-@foreach($opportunities as $opportunity)
-  <div id="overlay-{{ $opportunity->id }}" class="fullscreen-overlay">
-    <div class="overlay-inner" style="background-image: url('{{ asset('/public/storage/opportunities/' . $opportunity->image) }}');">
-      <button onclick="closeOverlay()" class="close-btn">&times;</button>
-      <div class="overlay-text">
-        <h2>{{ $opportunity->title }}</h2>
-        <p>{{ $opportunity->overlay_intro }}</p>
-        <div class="more-content">
-          <p>{{ $opportunity->overlay_details }}</p>
-        </div>
-        <button class="expand-btn" onclick="event.stopPropagation(); toggleMore(this)">Read more</button>
-      </div>
-    </div>
-  </div>
-@endforeach
 
 
  <!-- this is for full screen overlay when clicked -->

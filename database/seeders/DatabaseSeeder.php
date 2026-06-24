@@ -16,6 +16,13 @@ class DatabaseSeeder extends Seeder
             LegalSectionsSeeder::class,
             LegalListItemsSeeder::class,
 
+            ApplicationSeeder::class,
+            ApplicationLogSeeder::class,
+          
+
+            AboutSeeder::class,
+            AboutTableSeeder::class,
+
             LogoSeeder::class,
             HomeSeeder::class,
             HomeTable1Seeder::class,

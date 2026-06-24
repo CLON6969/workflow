@@ -129,7 +129,7 @@
     <!-- CEO -->
     <div class="team-member bg-white/80 border border-cyan-400/20 backdrop-blur-md rounded-[20px] p-4 text-center shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-105"
          data-aos="fade-up" data-aos-once="false" data-aos-duration="1000">
-      <img src="{{ asset('/public/uploads/pics/default2.png') }}" 
+      <img src="{{ asset('/public/uploads/pics/default1.png') }}" 
            alt="Mbumwae S. M." 
            class="w-[90px] h-[90px] rounded-full object-cover mx-auto mb-4 border-2 border-cyan-400">
       <h4 class="text-lg md:text-xl font-semibold mb-1 text-black">TEVETA,</h4>
@@ -139,7 +139,7 @@
     <!-- CTO -->
     <div class="team-member bg-white/80 border border-cyan-400/20 backdrop-blur-md rounded-[20px] p-4 text-center shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-105"
          data-aos="fade-up" data-aos-once="false" data-aos-duration="1000" data-aos-delay="150">
-      <img src="{{ asset('/public/uploads/pics/default2.png') }}" 
+      <img src="{{ asset('/public/uploads/pics/default1.png') }}" 
            alt="Erick Maliko" 
            class="w-[90px] h-[90px] rounded-full object-cover mx-auto mb-4 border-2 border-cyan-400">
       <h4 class="text-lg md:text-xl font-semibold mb-1 text-black">UNZA</h4>
@@ -149,7 +149,7 @@
     <!-- UX Lead -->
     <div class="team-member bg-white/80 border border-cyan-400/20 backdrop-blur-md rounded-[20px] p-4 text-center shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-105"
          data-aos="fade-up" data-aos-once="false" data-aos-duration="1000" data-aos-delay="300">
-      <img src="{{ asset('/public/uploads/pics/default2.png') }}" 
+      <img src="{{ asset('/public/uploads/pics/default1.png') }}" 
            alt="Mwami Miyanda" 
            class="w-[90px] h-[90px] rounded-full object-cover mx-auto mb-4 border-2 border-cyan-400">
       <h4 class="text-lg md:text-xl font-semibold mb-1 text-black">ZICA</h4>
@@ -159,22 +159,15 @@
         <!-- UX Lead -->
     <div class="team-member bg-white/80 border border-cyan-400/20 backdrop-blur-md rounded-[20px] p-4 text-center shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-105"
          data-aos="fade-up" data-aos-once="false" data-aos-duration="1000" data-aos-delay="300">
-      <img src="{{ asset('/public/uploads/pics/default2.png') }}" 
+      <img src="{{ asset('/public/uploads/pics/default1.png') }}" 
            alt="Mwami Miyanda" 
            class="w-[90px] h-[90px] rounded-full object-cover mx-auto mb-4 border-2 border-cyan-400">
       <h4 class="text-lg md:text-xl font-semibold mb-1 text-black">ECZ</h4>
       <p class="text-sm md:text-base font-orbitron text-cyan-200"><i class="fa-brands fa-galactic-senate"></i></p>
     </div>
 
-            <!-- UX Lead -->
-    <div class="team-member bg-white/80 border border-cyan-400/20 backdrop-blur-md rounded-[20px] p-4 text-center shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-105"
-         data-aos="fade-up" data-aos-once="false" data-aos-duration="1000" data-aos-delay="300">
-      <img src="{{ asset('/public/uploads/pics/default2.png') }}" 
-           alt="Mwami Miyanda" 
-           class="w-[90px] h-[90px] rounded-full object-cover mx-auto mb-4 border-2 border-cyan-400">
-      <h4 class="text-lg md:text-xl font-semibold mb-1 text-black">Cambridge</h4>
-      <p class="text-sm md:text-base font-orbitron text-cyan-200"><i class="fa-brands fa-galactic-republic"></i></p>
-    </div>
+   
+
 
   </div>
 </section>

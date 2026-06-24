@@ -11,26 +11,34 @@ class OpportunitySeeder extends Seeder
     {
         DB::table('opportunities')->insert([
             [
-                'title' => 'Explore opportunities',
-                'summary' => 'Explore 12th month present records of a neighborhood.',
-                'image' => 'uploads/pics/222.jpg',
-                'overlay_intro' => 'Discover what sets our neighborhood apart and how you can grow here.',
-                'overlay_details' => 'This extended section reveals further insights, including mentorship programs, scholarship links, and community achievements.'
+                'title'          => 'Graduate Internship Program',
+                'summary'        => 'A 6-month internship opportunity for recent graduates to gain real-world experience.',
+                'image'          => 'uploads/opportunities/internship.jpg',
+                'overlay_intro'  => 'Kickstart your career',
+                'overlay_details'=> 'This program is designed to equip graduates with hands-on skills in ICT, administration, and project management within a professional environment.',
+                'created_at'     => now(),
+                'updated_at'     => now(),
             ],
+
             [
-                'title' => 'Working at Kumoyo',
-                'summary' => 'Explore two most possibilities for the school.',
-                'image' => 'uploads/pics/233.jpg',
-                'overlay_intro' => 'We value passion, teamwork, and learning.',
-                'overlay_details' => 'Here at Kumoyo, employees benefit from flexible schedules, training resources, and international collaboration.'
+                'title'          => 'Scholarship Program',
+                'summary'        => 'Fully funded scholarships for eligible students across Zambia.',
+                'image'          => 'uploads/opportunities/scholarship.jpg',
+                'overlay_intro'  => 'Study with support',
+                'overlay_details'=> 'We offer scholarships to deserving students to pursue higher education in various accredited institutions locally and abroad.',
+                'created_at'     => now(),
+                'updated_at'     => now(),
             ],
+
             [
-                'title' => 'Become a global leader',
-                'summary' => 'People can find them in the area too.',
-                'image' => 'uploads/pics/219.jpg',
-                'overlay_intro' => 'Leadership is not just a position—it’s a mindset.',
-                'overlay_details' => 'We nurture talent through international programs, advanced coaching, and global experiences.'
-            ]
+                'title'          => 'Youth Skills Training',
+                'summary'        => 'Short-term skills development program for youth empowerment.',
+                'image'          => 'uploads/opportunities/training.jpg',
+                'overlay_intro'  => 'Build your future',
+                'overlay_details'=> 'This program focuses on practical skills such as ICT, entrepreneurship, and vocational training to empower young people in Zambia.',
+                'created_at'     => now(),
+                'updated_at'     => now(),
+            ],
         ]);
     }
 }

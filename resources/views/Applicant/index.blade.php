@@ -75,7 +75,10 @@
 
                     <td class="px-4 py-4">
 
-                        @if($app->isDraft())
+                        {{-- =========================
+                            DRAFT
+                        ========================= --}}
+                        @if($app->status === \App\Enums\ApplicationStatus::DRAFT)
 
                             <a href="{{ route('Applicant.applications.edit', $app) }}"
                                class="text-blue-600 hover:underline">
@@ -93,6 +96,30 @@
                                 </button>
                             </form>
 
+                        {{-- =========================
+                            RETURNED FOR CHANGES
+                        ========================= --}}
+                        @elseif($app->status === \App\Enums\ApplicationStatus::RETURNED_FOR_CHANGES)
+
+                            <a href="{{ route('Applicant.applications.edit', $app) }}"
+                               class="text-orange-600 hover:underline">
+                                Edit
+                            </a>
+
+                            <form action="{{ route('Applicant.applications.submit', $app) }}"
+                                  method="POST"
+                                  class="inline ml-3">
+                                @csrf
+
+                                <button type="submit"
+                                        class="text-green-600 hover:underline">
+                                    Resubmit
+                                </button>
+                            </form>
+
+                        {{-- =========================
+                            ALL OTHER STATUSES
+                        ========================= --}}
                         @else
 
                             <span class="text-gray-500">

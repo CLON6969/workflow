@@ -147,7 +147,7 @@
       </form>
 
       <div class="footer">
-       <p>  &copy; {{ date('Y') }} Powered by Kumoyo Technologies.</p>
+       <p>  &copy; {{ date('Y') }} Powered byWorkflow Technologies.</p>
       </div>
     </div>
   </div>
