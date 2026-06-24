@@ -82,12 +82,16 @@
                         </span>
                     </a>
 
-                    <a href="{{ route('social.redirect', 'facebook') }}" class="social-btn facebook" data-provider="Facebook">
-                        <span class="btn-text"><i class="fab fa-facebook-f"></i> Facebook</span>
-                        <span class="loading-spinner" style="display:none;">
-                            <i class="fas fa-spinner fa-spin"></i> Connecting...
-                        </span>
-                    </a>
+<a href="{{ route('social.redirect', 'facebook') }}"
+   class="social-btn facebook disabled-link"
+   data-provider="Facebook"
+   aria-disabled="true"
+   tabindex="-1">
+    <span class="btn-text"><i class="fab fa-facebook-f"></i> Facebook</span>
+    <span class="loading-spinner" style="display:none;">
+        <i class="fas fa-spinner fa-spin"></i> Connecting...
+    </span>
+</a>
 
                 </div>
 
@@ -246,6 +250,12 @@
 
     <!-- Styles (unchanged) -->
     <style>
+
+    .disabled-link {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
         .text-danger {
             color: #e3342f !important;
             font-size: 0.85rem;
@@ -266,6 +276,7 @@
             pointer-events: none;
             z-index: 2;
         }
+
 
         input {
             width: 100%;

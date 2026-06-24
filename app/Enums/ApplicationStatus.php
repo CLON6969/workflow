@@ -39,4 +39,6 @@ enum ApplicationStatus: string
             self::REJECTED,
         ]);
     }
+
+    
 }

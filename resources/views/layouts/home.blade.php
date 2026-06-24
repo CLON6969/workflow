@@ -29,6 +29,8 @@
   
      <!-- icon -->
    <link rel="icon" type="image/x-icon" href="{{ asset('favicon2.ico') }}">
+   <link rel="icon" href="/favicon2.ico?v=2">
+   
 
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 

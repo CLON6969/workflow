@@ -27,7 +27,7 @@ class ReviewController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('reviewer.queue', compact('applications'));
+        return view('Reviewer.queue', compact('applications'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ReviewController extends Controller
 
         $application->load(['user', 'logs.user']);
 
-        return view('reviewer.show', compact('application'));
+        return view('Reviewer.show', compact('application'));
     }
 
     /**
@@ -60,4 +60,5 @@ class ReviewController extends Controller
             ->route('Reviewer.applications.show', $application)
             ->with('success', 'Action completed successfully.');
     }
+    
 }

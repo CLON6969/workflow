@@ -26,14 +26,14 @@ class ApplicationController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('applicant.index', compact('applications'));
+        return view('Applicant.index', compact('applications'));
     }
 
     public function create()
     {
         $this->authorize('create', Application::class);
 
-        return view('applicant.create');
+        return view('Applicant.create');
     }
 
     public function store(StoreApplicationRequest $request)
@@ -60,7 +60,7 @@ class ApplicationController extends Controller
     {
         $this->authorize('update', $application);
 
-        return view('applicant.edit', compact('application'));
+        return view('Applicant.edit', compact('application'));
     }
 
     public function update(StoreApplicationRequest $request, Application $application)

@@ -42,6 +42,9 @@ Route::middleware(['auth', 'role:1'])->prefix('Reviewer')->name('Reviewer.')->gr
         Route::post('/{application}/review', [ReviewController::class, 'review'])->name('review');
     });
 
+
+
+
     // Profile
     Route::prefix('profile-account')->name('profile-account.')->group(function () {
         Route::get('/', [ReviewerProfileController::class, 'edit'])->name('index');
